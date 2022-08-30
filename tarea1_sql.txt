@@ -1,0 +1,80 @@
+CREATE DATABASE Tarea_1;
+GO
+
+USE Tarea_1
+GO
+
+DROP TABLE Department
+DROP TABLE Projects
+DROP TABLE Software
+DROP TABLE Server
+DROP TABLE ProdutionErrors
+DROP TABLE Person
+
+CREATE TABLE Department(
+	id INT NOT NULL,
+	name VARCHAR (20) NOT NULL,
+	boss VARCHAR (20),
+	PRIMARY KEY (id)
+)
+
+CREATE TABLE Software(
+	description VARCHAR(20),
+	patent INT NOT NULL, 
+	code INT NOT NULL,
+	name VARCHAR (20) NOT NULL,
+	releaseDate DATE NOT NULL,
+	expireDate DATE NOT NULL,
+	type  VARCHAR (20) NOT NULL,
+	department_id INT NOT NULL,
+	PRIMARY KEY (code),
+	FOREIGN KEY (department_id) REFERENCES Department (id)
+)
+
+CREATE TABLE Server(
+	brand VARCHAR (20),
+	model VARCHAR (20),
+	buyDate DATE,
+	processCapacity INT,
+	storageCapacity INT,
+	memory INT,
+	role VARCHAR (20),
+	id INT NOT NULL,
+	PRIMARY KEY (id)
+)
+
+CREATE TABLE ProdutionErrors(
+	software_code INT NOT NULL,
+	server_id INT NOT NULL,
+	impact VARCHAR(20),
+	description VARCHAR(20),
+	id INT NOT NULL,
+	date DATE,
+	time DATETIME,
+	PRIMARY KEY (id),
+	FOREIGN KEY (software_code) REFERENCES Software (code),
+	FOREIGN KEY (server_id) REFERENCES Server (id)
+)
+
+CREATE TABLE Projects(
+	realEffort VARCHAR(20),
+	id INT NOT NULL,
+	endDate DATE,
+	name VARCHAR(20),
+	description VARCHAR(20),
+	startDate DATE,
+	EstimatedEffort VARCHAR(20),
+	produtionErrors_id INT NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (produtionErrors_id) REFERENCES ProdutionErrors (id)
+)
+
+CREATE TABLE Person(
+	role VARCHAR(20),
+	id INT NOT NULL,
+	name VARCHAR(20),
+	lastName VARCHAR(20),
+	project_id INT NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (project_id) REFERENCES Projects (id)
+)
