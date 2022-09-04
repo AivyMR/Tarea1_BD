@@ -78,3 +78,33 @@ CREATE TABLE Person(
 	PRIMARY KEY (id),
 	FOREIGN KEY (project_id) REFERENCES Projects (id)
 )
+
+INSERT INTO Department (id, name, boss)
+VALUES (1, 'IT', 'Juancito Madrigal');
+
+INSERT INTO Software (description, patent, code, name, releaseDate, expireDate, type, department_id)
+VALUES ('Application', 001, 01, 'App 1', '2020-05-03', '2040-05-03', 'business', 1);
+
+INSERT INTO Server (brand, model, buyDate, processCapacity, storageCapacity, memory, role, id)
+VALUES ('IBM' , 'E1080', '2019-05-03', 32, 512, 32, 'production', 1);
+
+INSERT INTO ProdutionErrors (software_code, server_id, impact, description, id, date, time)
+VALUES (01, 1, 'medio', 'IC issues', 1, '2021-05-03', '2021-05-03 14:22:03');
+
+INSERT INTO Projects (realEffort, id, endDate, name, description, startDate, EstimatedEffort, produtionErrors_id)
+VALUES ('3', 1, '2023-05-03', 'Bug fix', 'Bug fixer', '2021-05-03', '2', 1);
+
+INSERT INTO Person (role, id, name, lastName, project_id)
+VALUES ('coder', 1, 'Noxian', 'Elefante', 1);
+
+
+
+SELECT * FROM Department;
+SELECT * FROM Software;
+SELECT * FROM Server;
+SELECT * FROM ProdutionErrors;
+SELECT * FROM Projects;
+SELECT * FROM Person;
+
+UPDATE ProdutionErrors
+SET description = 'CI issues'
